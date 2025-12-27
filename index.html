@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Special Birthday Surprise</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700;800&family=Dancing+Script:wght@400;700&family=Fredoka:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <div id="slide-1" class="slide active">
+            <div class="countdown-container">
+                <div class="countdown" id="countdown">3</div>
+            </div>
+        </div>
+
+        <div id="slide-2" class="slide">
+            <div class="crafting-container">
+                <h1 class="crafting-text">Raina... A Subsidiary of RMI</h1>
+                <div class="sparkles"></div>
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-3" class="slide">
+            <div class="content-center">
+                <div class="message-box fade-in">
+                    <h2 class="magical-text">Ummmm ... A <span class="highlight">cutiepie</span> was born today,</h2>
+                    <h2 class="magical-text"><span class="age-number">18</span> years ago! 🎂</h2>
+                    <h1 class="emphasis">And Yes, it's YOU! ✨</h1>
+                    <button class="btn-primary pulse" onclick="nextSlide()">
+                        Continue 🎁
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="slide-4" class="slide">
+            <div class="content-center">
+                <h1 class="birthday-greeting">Happy Birthday <span class="name-highlight">Buddy</span>! 🎉</h1>
+                <p class="birthday-subtitle">Let's make this day EXTRA special! 🌟 </p>
+                <p class="birthday-subtitle">Pop the balloons and let the celebration begin! 🎉🎈 </p>
+                <div class="balloons-container" id="balloonsContainer">
+                    <div class="balloon balloon-1" data-message="You are absolutely amazing! 🌟" onclick="popBalloon(this)">
+                        <div class="balloon-string"></div>
+                    </div>
+                    <div class="balloon balloon-2" data-message="Your smile lights up the world! 😊" onclick="popBalloon(this)">
+                        <div class="balloon-string"></div>
+                    </div>
+                    <div class="balloon balloon-3" data-message="You make every day better! 💫" onclick="popBalloon(this)">
+                        <div class="balloon-string"></div>
+                    </div>
+                    <div class="balloon balloon-4" data-message="You're one in a million! 🎉" onclick="popBalloon(this)">
+                        <div class="balloon-string"></div>
+                    </div>
+                </div>
+                <div class="balloon-message hidden" id="balloonMessage"></div>
+                <button class="btn-primary hidden" id="nextAfterBalloons" onclick="nextSlide()">
+                    Continue 💫
+                </button>
+            </div>
+        </div>
+
+        <div id="slide-5" class="slide">
+            <div class="content-center">
+                <h2 class="scene-title">Some Sweet Moments 📸</h2>
+                <p class="subtitle">Swipe through our beautiful memories ✨</p>
+                <div class="carousel-container">
+                    <button class="carousel-btn prev" onclick="prevPhoto()">‹</button>
+                    <div class="photo-carousel" id="photoCarousel">
+                        <div class="photo-card active">
+                            <img src="images/photo1.jpg" alt="Memory 1">
+                            <p class="photo-caption">💕</p>
+                        </div>
+                        <div class="photo-card">
+                            <img src="images/photo2.jpg" alt="Memory 2">
+                            <p class="photo-caption">🎈</p>
+                        </div>
+                        <div class="photo-card">
+                            <img src="images/photo3.jpg" alt="Memory 3">
+                            <p class="photo-caption">✨</p>
+                        </div>
+                        <div class="photo-card">
+                            <img src="images/photo4.jpg" alt="Memory 4">
+                            <p class="photo-caption">🌸</p>
+                        </div>
+                    </div>
+                    <button class="carousel-btn next" onclick="nextPhoto()">›</button>
+                </div>
+                <div class="carousel-dots" id="carouselDots">
+                    <div class="dot active" onclick="goToPhoto(0)"></div>
+                    <div class="dot" onclick="goToPhoto(1)"></div>
+                    <div class="dot" onclick="goToPhoto(2)"></div>
+                    <div class="dot" onclick="goToPhoto(3)"></div>
+                </div>
+                <button class="btn-primary" onclick="nextSlide()">
+                    Open Message 💌
+                </button>
+            </div>
+        </div>
+
+        <div id="slide-6" class="slide">
+            <div class="content-center">
+                <h2 class="scene-title">A Special Message For You 💝</h2>
+                <p class="subtitle">Open your heart to read this... 💌</p>
+                <div class="greeting-card" id="greetingCard" onclick="toggleCard()">
+                    <div class="card-front">
+                        <div class="card-decoration"></div>
+                        <h3>Happy Birthday!</h3>
+                        <p class="tap-hint">✨ Tap to open ✨</p>
+                    </div>
+                    <div class="card-inside">
+                        <p>
+
+Dear Raina,
+
+On this special day, I want you to know how incredibly 
+amazing you are! 🎂
+
+Every moment with you is a treasure. May this year bring you endless happiness, exciting 
+adventures and all the success you deserve!
+
+Keep shining bright like you always do! ✨
+
+With all our love,
+Your Special Someone 💝</p>
+                        <p class="tap-hint"></p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="nextSlide()">
+                    One Last to Go ... 
+                </button>
+            </div>
+        </div>
+
+        <div id="slide-7" class="slide">
+            <div class="content-center">
+                <div class="finale-container">
+                    <h2 class="scene-title finale-title">The Grand Finale! 🎁</h2>
+                    <p class="subtitle">Something special is waiting for you... Your Dreams 🌟</p>
+                    <div class="gift-box" id="giftBox" onclick="openGift()">
+                        <div class="gift-lid"></div>
+                        <div class="gift-body"></div>
+                        <div class="gift-ribbon ribbon-v"></div>
+                        <div class="gift-ribbon ribbon-h"></div>
+                        <div class="gift-bow"></div>
+                    </div>
+                    <div class="gift-reveal hidden" id="giftReveal">
+                        <div class="finale-animation">
+                            <div class="gift-sparkles" id="giftSparkles"></div>
+                            <div class="cute-gifs">
+                                <img src="images/celebration.gif" alt="Cute celebration" class="cute-gif" onerror="this.src='https://media.giphy.com/media/g5R9dok94mrIvplmZd/giphy.gif'">
+                            </div>
+                        </div>
+                        <div class="love-emojis">
+                            <span class="love-emoji">💝</span>
+                            <span class="love-emoji">🌟</span>
+                            <span class="love-emoji">💖</span>
+                            <span class="love-emoji">🎈</span>
+                            <span class="love-emoji">💕</span>
+                            <span class="love-emoji">✨</span>
+                            <span class="love-emoji">🎂</span>
+                            <span class="love-emoji">💗</span>
+                        </div>
+                        <p class="final-message">Lots of love for you! Wishing you a year full of happiness, success and everything you’ve been hoping for 🎉! 🎁💕</p>
+                    </div>
+                    <button class="btn-primary hidden" id="replayBtn" onclick="replay()">
+                        Again! 🔄
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="confetti-container" id="confettiContainer"></div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
