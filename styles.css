@@ -1,6 +1,4 @@
-/* --------------------------------------------------
-   GLOBAL STYLE RESET + PASTEL THEME
--------------------------------------------------- */
+/* 🌸 Global Setup */
 * {
     margin: 0;
     padding: 0;
@@ -8,233 +6,183 @@
 }
 
 :root {
-    --pink: #ff9ecb;
-    --hotpink: #ff6fa5;
-    --blue: #a8d8ff;
+    --pink: #ff94c2;
+    --hotpink: #ff5fa2;
+    --blue: #9dd6ff;
     --mint: #b8ffd4;
-    --yellow: #fff4a3;
-    --lavender: #e6d7ff;
+    --yellow: #fff9a8;
+    --lavender: #e5d1ff;
 
-    --white-glass: rgba(255,255,255,0.35);
-    --black-transparent: rgba(0,0,0,0.15);
-
-    --radius-big: 28px;
-    --transition: all .8s cubic-bezier(.68,-0.55,.27,1.55);
+    --white-glass: rgba(255,255,255,0.3);
+    --black-glass: rgba(0,0,0,0.15);
 }
 
 body {
     font-family: 'Poppins', sans-serif;
     background: linear-gradient(135deg, var(--blue), var(--pink));
-    height: 100vh;
     width: 100vw;
+    height: 100vh;
     overflow: hidden;
-    color: #fff;
-    user-select: none;
+    color: white;
 }
 
-/* --------------------------------------------------
-   SLIDE SYSTEM
--------------------------------------------------- */
-#app {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-
+/* 📌 Slides */
 .slide {
     position: absolute;
+    width: 100%;
+    height: 100%;
     inset: 0;
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(100%) rotateY(-30deg);
-    transition: var(--transition);
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: 1s cubic-bezier(.68,-0.55,.27,1.55);
 }
 
 .slide.active {
     opacity: 1;
-    pointer-events: all;
-    transform: translateX(0) rotateY(0);
+    transform: translateX(0);
 }
 
 .slide.exit {
-    transform: translateX(-100%) rotateY(30deg);
+    opacity: 0;
+    transform: translateX(-100%);
 }
 
-/* --------------------------------------------------
-   INPUT SLIDE
--------------------------------------------------- */
-.input-container {
-    background: var(--white-glass);
-    backdrop-filter: blur(20px);
-    padding: 2.5rem;
-    border-radius: var(--radius-big);
-    width: 90%;
-    max-width: 420px;
+.content-center {
     text-align: center;
-    animation: fadeIn 1s ease-out;
-}
-
-.input-container input {
-    width: 100%;
+    max-width: 900px;
     padding: 1rem;
-    margin: 1rem 0;
-    font-size: 1.3rem;
-    border: none;
-    border-radius: 15px;
-    outline: none;
-    background: rgba(255,255,255,0.9);
-    color: #444;
-    animation: glowIn 1s ease-out;
 }
 
-.welcome-text {
-    font-size: 2rem;
-    font-weight: 700;
-    color: #fff;
-}
-
-.welcome-text-small {
-    font-size: 1.3rem;
-    margin-top: 1rem;
-}
-
-/* --------------------------------------------------
-   COUNTDOWN SLIDE
--------------------------------------------------- */
+/* 🎶 Countdown */
 .countdown {
-    font-size: 12rem;
+    font-size: 11rem;
     font-weight: 900;
+    background: linear-gradient(45deg, var(--pink), var(--yellow));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     animation: countdownPulse 1s infinite;
-    background: linear-gradient(45deg, var(--mint), var(--hotpink), var(--blue));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
 }
 
-/* --------------------------------------------------
-   MAGIC CRAFTING
--------------------------------------------------- */
-.crafting-text {
+@keyframes countdownPulse {
+    50% { transform: scale(1.2); }
+}
+
+/* ✨ Text styles */
+.magical-text { font-size: 2.5rem; margin: 1rem; }
+.highlight { color: var(--yellow); }
+.age-number { color: var(--hotpink); font-size: 3.5rem; }
+.name-highlight { color: var(--yellow); }
+
+.emphasis {
     font-size: 3rem;
-    text-shadow: 0 0 12px var(--white-glass);
-    background: linear-gradient(45deg, var(--lavender), var(--pink), var(--yellow));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 3s infinite;
+    margin-top: 1rem;
+    animation: bounce 1.5s infinite;
 }
 
-.loading-bar {
-    width: 250px;
-    height: 10px;
-    background: var(--white-glass);
-    border-radius: 10px;
-    margin: 2rem auto;
+@keyframes bounce {
+    50% { transform: translateY(-8px); }
 }
 
-.loading-progress {
-    height: 100%;
-    background: var(--hotpink);
-    border-radius: 10px;
-    animation: loading 2.5s forwards;
-}
-
-/* --------------------------------------------------
-   BUTTONS ✨
--------------------------------------------------- */
+/* 🎀 Buttons */
 .btn-primary {
-    background: linear-gradient(135deg, var(--pink), var(--hotpink));
-    border: none;
-    color: white;
-    padding: 1rem 2.5rem;
-    font-size: 1.2rem;
-    border-radius: 50px;
-    cursor: pointer;
-    font-weight: bold;
     margin-top: 2rem;
-    transition: var(--transition);
+    background: linear-gradient(135deg, var(--pink), var(--hotpink));
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .5s;
+    color: white;
+    font-size: 1.2rem;
+    border: none;
 }
 
 .btn-primary:hover {
-    transform: scale(1.09) translateY(-5px);
-    box-shadow: 0 0 20px var(--white-glass);
+    transform: scale(1.07);
 }
 
-.hidden { display: none !important; }
-
-/* --------------------------------------------------
-   BALLOONS 🎈
--------------------------------------------------- */
+/* 🎈 Balloons */
 .balloons-container {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
+    gap: 1.6rem;
     margin-top: 3rem;
 }
 
 .balloon {
     width: 90px;
-    height: 110px;
-    border-radius: 50% 50% 45% 45%;
-    animation: float 3s ease-in-out infinite;
+    height: 120px;
     cursor: pointer;
-}
-
-.balloon-1 { background: var(--hotpink); }
-.balloon-2 { background: var(--blue); }
-.balloon-3 { background: var(--yellow); }
-.balloon-4 { background: var(--mint); }
-
-/* Pop animation */
-.balloon.popped {
-    animation: balloonPop .9s forwards;
-}
-
-/* --------------------------------------------------
-   PHOTO CAROUSEL
--------------------------------------------------- */
-.carousel-container {
-    width: 100%;
-    max-width: 500px;
-    margin: auto;
-}
-
-.photo-carousel {
+    background: var(--pink);
+    border-radius: 50% 50% 45% 45%;
     position: relative;
-    width: 100%;
-    height: 420px;
-    border-radius: var(--radius-big);
-    overflow: hidden;
-    background: var(--white-glass);
-    backdrop-filter: blur(10px);
+    box-shadow: inset -12px -15px 20px rgba(0,0,0,0.15),
+                inset 12px 15px 20px rgba(255,255,255,0.35);
+    animation: float 3s infinite ease-in-out;
 }
 
-.photo-card {
+.balloon.heart {
+    border-radius: 50% 50% 50% 50%;
+    transform: rotate(-45deg);
+}
+
+.balloon.heart::before,
+.balloon.heart::after {
+    content: "";
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: inherit;
     position: absolute;
-    inset: 0;
-    opacity: 0;
-    transform: scale(.8);
-    transition: all .6s ease;
+    top: -40px;
+    left: 0;
 }
 
-.photo-card.active {
-    opacity: 1;
-    transform: scale(1);
+.balloon.heart::after {
+    left: 40px;
 }
 
-/* --------------------------------------------------
-   GREETING CARD
--------------------------------------------------- */
-.greeting-card {
-    width: 380px;
-    height: 480px;
+.balloon.star {
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%,
+                       79% 91%, 50% 70%, 21% 91%, 32% 57%,
+                       2% 35%, 39% 35%);
+    background: var(--yellow);
+}
+
+.balloon.round {
+    background: var(--blue);
+}
+
+@keyframes float {
+    50% { transform: translateY(-20px); }
+}
+
+.balloon.popped {
+    animation: balloonPop .8s forwards;
+}
+
+@keyframes balloonPop {
+    to { transform: scale(.2); opacity: 0; }
+}
+
+.balloon-message {
+    font-size: 2rem;
+    font-family: 'Dancing Script', cursive;
     background: var(--white-glass);
-    backdrop-filter: blur(15px);
+    padding: 1.5rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+}
+
+/* 💌 Card */
+.greeting-card {
+    width: 350px;
+    height: 450px;
+    background: var(--white-glass);
     padding: 1rem;
-    border-radius: var(--radius-big);
+    border-radius: 25px;
     perspective: 1000px;
     cursor: pointer;
 }
@@ -244,19 +192,22 @@ body {
     position: absolute;
     inset: 0;
     backface-visibility: hidden;
-    border-radius: var(--radius-big);
-}
-
-.card-front {
-    background: linear-gradient(135deg, var(--pink), var(--hotpink), var(--yellow));
+    border-radius: 25px;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-align: center;
+}
+
+.card-front {
+    background: var(--pink);
     flex-direction: column;
 }
 
 .card-inside {
-    background: var(--white-glass);
+    background: white;
+    color: black;
+    padding: 1rem;
     transform: rotateY(180deg);
 }
 
@@ -268,106 +219,47 @@ body {
     transform: rotateY(360deg);
 }
 
-/* --------------------------------------------------
-   FINALE 🎁
--------------------------------------------------- */
+/* 🎁 Gift */
 .gift-box {
-    width: 190px;
-    height: 190px;
-    margin-top: 3rem;
+    width: 200px;
+    height: 200px;
     background: var(--hotpink);
     border-radius: 15px;
     cursor: pointer;
-    box-shadow: 0 10px 30px var(--black-transparent);
-    position: relative;
+    box-shadow: 0 10px 30px var(--black-glass);
 }
 
-.gift-lid {
-    width: 210px;
-    height: 60px;
-    background: var(--pink);
-    position: absolute;
-    top: -30px;
-    left: -10px;
-    border-radius: 12px;
+.gift-reveal {
+    animation: fadeIn 1s forwards;
+    margin-top: 2rem;
 }
 
-/* Reveal */
-.gift-box.opening {
-    animation: openGift 1s forwards;
-}
-
-/* Secret Text */
-.reveal-text {
-    font-size: 2.1rem;
-    font-weight: 700;
-    margin-top: 1.5rem;
-    background: linear-gradient(45deg, var(--yellow), var(--pink));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glow 2s infinite alternate;
-}
-
-/* --------------------------------------------------
-   CONFETTI & FIREWORKS
--------------------------------------------------- */
+/* 🌈 Confetti + Fireworks */
 .confetti-container {
-    position: fixed; inset: 0;
+    position: fixed;
+    inset: 0;
     pointer-events: none;
     z-index: 999;
 }
 
 #fireworksCanvas {
-    position: fixed; inset: 0;
-    pointer-events: none;
+    position: fixed;
+    inset: 0;
     z-index: 998;
+    pointer-events: none;
 }
 
-/* --------------------------------------------------
-   TEXT & ANIMATIONS
--------------------------------------------------- */
-@keyframes countdownPulse { 
- 50% { transform: scale(1.25); }
-}
-
-@keyframes shimmer {
- 0%,100% { background-position: 0 50%; }
- 50% { background-position: 100% 50%; }
-}
-
-@keyframes loading {
- 0% { width: 0; }
- 100% { width: 100%; }
-}
-
+/* ✨ Animations */
 @keyframes fadeIn {
- from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
 }
 
-@keyframes glow {
- from { text-shadow: 0 0 10px var(--pink); }
- to { text-shadow: 0 0 25px var(--hotpink); }
-}
-
-@keyframes float {
- 50% { transform: translateY(-20px); }
-}
-
-@keyframes balloonPop {
- 0% { transform: scale(1); opacity:1; }
- 100% { transform: scale(.2); opacity:0; }
-}
-
-@keyframes openGift {
- to { transform: translateY(-300px) rotate(10deg); opacity:0; }
-}
-
-/* --------------------------------------------------
-   RESPONSIVE LOVE ❤
--------------------------------------------------- */
-@media (max-width:768px) {
-    .photo-carousel { height: 340px; }
-    .greeting-card { width: 310px; height: 420px; }
-    .reveal-text { font-size: 1.7rem; }
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    .balloons-container { gap: 1rem; }
+    .balloon { width: 70px; height:100px; }
     .countdown { font-size: 8rem; }
+
+    .greeting-card { width: 300px; height: 400px; }
 }
