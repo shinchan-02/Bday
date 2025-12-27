@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🎉 Special Birthday Surprise</title>
+    <title>🎉 Special Birthday Surprise for Raina</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@300;400;600;700;800&family=Dancing+Script:wght@400;700&family=Fredoka:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -11,8 +11,10 @@
 </head>
 
 <body>
-    <audio id="bgMusic" loop preload="auto">
-        <source src="sounds/happy-birthday.mp3" type="audio/mp3">
+
+    <!-- Cute Music -->
+    <audio id="bgMusic" preload="auto">
+        <source src="sounds/cute.mp3" type="audio/mp3">
     </audio>
 
     <audio id="popSound" preload="auto">
@@ -25,139 +27,100 @@
 
     <div id="app">
 
-        <!-- ⭐ Slide 0: User Input -->
-        <div id="slide-0" class="slide active">
-            <div class="input-container fade-in">
-                <h2 class="welcome-text">Hey Beautiful! 💖 What’s your name?</h2>
-                <input type="text" id="nameInput" placeholder="Enter your name..." autocomplete="off" />
-                <h3 class="welcome-text-small">And how old are you today? 🎂</h3>
-                <input type="number" id="ageInput" placeholder="18" min="1" />
-                <button class="btn-primary pulse" onclick="saveDetails()">
-                    Let's Begin ✨
-                </button>
-            </div>
-        </div>
-
-        <!-- ⏱️ Slide 1: Countdown -->
-        <div id="slide-1" class="slide">
+        <!-- 1️⃣ Countdown -->
+        <div id="slide-1" class="slide active">
             <div class="countdown-container">
                 <div class="countdown" id="countdown">3</div>
             </div>
         </div>
 
-        <!-- 🛠️ Slide 2: Crafting -->
+        <!-- 2️⃣ Crafting -->
         <div id="slide-2" class="slide">
             <div class="crafting-container">
-                <h1 class="crafting-text" id="craftName"></h1>
-                <p class="crafting-status">Creating magic...</p>
-                <div class="sparkles"></div>
+                <h1 class="crafting-text">Raina... 🌸</h1>
+                <p class="crafting-status">Hold on, magic loading...</p>
                 <div class="loading-bar"><div class="loading-progress"></div></div>
             </div>
         </div>
 
-        <!-- 💖 Slide 3 -->
+        <!-- 3️⃣ Message -->
         <div id="slide-3" class="slide">
             <div class="content-center">
                 <div class="message-box fade-in">
                     <h2 class="magical-text">Ummmm ... A <span class="highlight">cutiepie</span> was born today,</h2>
-                    <h2 class="magical-text"><span class="age-number" id="ageDisplay"></span> years ago! 🎂</h2>
-                    <h1 class="emphasis">And Yes, it's <span id="nameDisplay"></span>! ✨</h1>
-                    <button class="btn-primary pulse" onclick="nextSlide()">
-                        Continue 🎁
-                    </button>
+                    <h2 class="magical-text"><span class="age-number">18</span> years ago! 🎂</h2>
+                    <h1 class="emphasis">And Yes, it's <span class="name-highlight">Raina</span>! ✨</h1>
+                    <button class="btn-primary pulse" onclick="nextSlide()">Continue 🎁</button>
                 </div>
             </div>
         </div>
 
-        <!-- 🎈 Slide 4 -->
+        <!-- 4️⃣ Balloons -->
         <div id="slide-4" class="slide">
             <div class="content-center">
-                <h1 class="birthday-greeting">Happy Birthday <span class="name-highlight" id="nameDisplay2"></span>! 🎉</h1>
-                <p class="birthday-subtitle">Pop the balloons and let the celebration begin! 🎉🎈 </p>
-                <div class="balloons-container" id="balloonsContainer">
-                    <div class="balloon balloon-1" data-message="You are absolutely amazing! 🌟" onclick="popBalloon(this)">
-                        <div class="balloon-string"></div>
-                    </div>
-                    <div class="balloon balloon-2" data-message="Your smile lights up the world! 😊" onclick="popBalloon(this)">
-                        <div class="balloon-string"></div>
-                    </div>
-                    <div class="balloon balloon-3" data-message="You make every day better! 💫" onclick="popBalloon(this)">
-                        <div class="balloon-string"></div>
-                    </div>
-                    <div class="balloon balloon-4" data-message="You're one in a million! 🎉" onclick="popBalloon(this)">
-                        <div class="balloon-string"></div>
-                    </div>
+                <h1 class="birthday-greeting">Happy Birthday Raina! 🎉</h1>
+                <p class="birthday-subtitle">Pop the balloons to reveal messages! 🎈</p>
+
+                <div class="balloons-container">
+                    <div class="balloon round" data-message="You're amazing! 🌟" onclick="popBalloon(this)"></div>
+                    <div class="balloon heart" data-message="Your smile is sunshine! ☀️" onclick="popBalloon(this)"></div>
+                    <div class="balloon star" data-message="You brighten lives! ✨" onclick="popBalloon(this)"></div>
+                    <div class="balloon heart" data-message="You're one in a million! 💖" onclick="popBalloon(this)"></div>
                 </div>
+
                 <div class="balloon-message hidden" id="balloonMessage"></div>
-                <button class="btn-primary hidden" id="nextAfterBalloons" onclick="nextSlide()">
-                    Continue 💫
-                </button>
+
+                <button class="btn-primary hidden" id="nextAfterBalloons" onclick="nextSlide()">Continue 💫</button>
             </div>
         </div>
 
-        <!-- 📸 Slide 5: Photo Carousel -->
+        <!-- 5️⃣ Photos -->
         <div id="slide-5" class="slide">
             <div class="content-center">
                 <h2 class="scene-title">Some Sweet Moments 📸</h2>
-                <p class="subtitle">Swipe through our beautiful memories ✨</p>
+                <p class="subtitle">Swipe through memories ✨</p>
+
                 <div class="carousel-container">
                     <button class="carousel-btn prev" onclick="prevPhoto()">‹</button>
                     <div class="photo-carousel" id="photoCarousel">
-                        <div class="photo-card active"><img src="images/photo1.jpg" alt="Memory 1"><p class="photo-caption">💕</p></div>
-                        <div class="photo-card"><img src="images/photo2.jpg" alt="Memory 2"><p class="photo-caption">🎈</p></div>
-                        <div class="photo-card"><img src="images/photo3.jpg" alt="Memory 3"><p class="photo-caption">✨</p></div>
-                        <div class="photo-card"><img src="images/photo4.jpg" alt="Memory 4"><p class="photo-caption">🌸</p></div>
+                        <div class="photo-card active"><img src="images/photo1.jpg"></div>
+                        <div class="photo-card"><img src="images/photo2.jpg"></div>
+                        <div class="photo-card"><img src="images/photo3.jpg"></div>
+                        <div class="photo-card"><img src="images/photo4.jpg"></div>
                     </div>
                     <button class="carousel-btn next" onclick="nextPhoto()">›</button>
                 </div>
-                <div class="carousel-dots" id="carouselDots">
-                    <div class="dot active" onclick="goToPhoto(0)"></div>
-                    <div class="dot" onclick="goToPhoto(1)"></div>
-                    <div class="dot" onclick="goToPhoto(2)"></div>
-                    <div class="dot" onclick="goToPhoto(3)"></div>
-                </div>
-                <button class="btn-primary" onclick="nextSlide()">
-                    Open Message 💌
-                </button>
+
+                <button class="btn-primary" onclick="nextSlide()">Open Message 💌</button>
             </div>
         </div>
 
-        <!-- 💌 Slide 6: Greeting card -->
+        <!-- 6️⃣ Greeting card -->
         <div id="slide-6" class="slide">
             <div class="content-center">
-                <h2 class="scene-title">A Special Message For You 💝</h2>
+                <h2 class="scene-title">A Message for You 💝</h2>
                 <div class="greeting-card" id="greetingCard" onclick="toggleCard()">
-                    <div class="card-front"><h3>Happy Birthday!</h3><p class="tap-hint">✨ Tap to open ✨</p></div>
-                    <div class="card-inside">
-                        <p id="personalMessage"></p>
-                    </div>
+                    <div class="card-front"><h3>Happy Birthday!</h3><p class="tap-hint">Tap to open ✨</p></div>
+                    <div class="card-inside"><p id="personalMessage"></p></div>
                 </div>
-                <button class="btn-primary" onclick="nextSlide()">One Last to Go...</button>
+                <button class="btn-primary" onclick="nextSlide()">Next ✨</button>
             </div>
         </div>
 
-        <!-- 🎁 Slide 7: Gift -->
+        <!-- 7️⃣ Gift Reveal -->
         <div id="slide-7" class="slide">
             <div class="content-center">
-                <h2 class="scene-title finale-title">The Grand Finale! 🎁</h2>
-                <p class="subtitle">Tap the gift to reveal your surprise ✨</p>
-                <div class="gift-box" id="giftBox" onclick="openGift()">
-                    <div class="gift-lid"></div>
-                    <div class="gift-body"></div>
-                    <div class="gift-ribbon ribbon-v"></div>
-                    <div class="gift-ribbon ribbon-h"></div>
-                </div>
+                <h2 class="scene-title">The Grand Finale! 🎁</h2>
+                <p class="subtitle">Tap the gift 🎀</p>
+
+                <div class="gift-box" id="giftBox" onclick="openGift()"></div>
 
                 <div class="gift-reveal hidden" id="giftReveal">
-                    <div class="finale-animation">
-                        <div class="gift-sparkles" id="giftSparkles"></div>
-                        <img class="cute-gif" src="images/celebration.gif">
-                    </div>
-                    <h2 class="final-special reveal-text" id="secretText"></h2>
-                    <p class="final-message">Lots of love for you! Wishing you a year full of happiness, success and everything you’ve been hoping for 🎉💕</p>
+                    <img class="cute-gif" src="images/celebration.gif">
+                    <h2 class="reveal-text" id="secretText"></h2>
+                    <p class="final-message">Wishing you happiness, love & success always 🎉💕</p>
+                    <button class="btn-primary" id="replayBtn" onclick="replay()">Again! 🔄</button>
                 </div>
-
-                <button class="btn-primary hidden" id="replayBtn" onclick="replay()">Again! 🔄</button>
             </div>
         </div>
 
