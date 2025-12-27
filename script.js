@@ -1,112 +1,76 @@
-let currentSlide = 0;
+let currentSlide = 1;
 let currentPhoto = 0;
 let poppedBalloons = 0;
-let autoplayInterval;
-let fireworksActive = false;
 
-// Elements
 const bgMusic = document.getElementById("bgMusic");
 const popSound = document.getElementById("popSound");
 const fireworkSound = document.getElementById("fireworkSound");
 
-// 🎀 Save name + age → Continue to countdown
-function saveDetails() {
-    const nameVal = document.getElementById("nameInput").value || "Beautiful";
-    const ageVal = document.getElementById("ageInput").value || "18";
-
-    localStorage.setItem("bdayName", nameVal);
-    localStorage.setItem("bdayAge", ageVal);
-
-    document.getElementById("craftName").textContent = `${nameVal}... 🌸`;
-    document.getElementById("nameDisplay").textContent = nameVal;
-    document.getElementById("nameDisplay2").textContent = nameVal;
-    document.getElementById("ageDisplay").textContent = ageVal;
-
-    bgMusic.volume = 0.3;
-    bgMusic.play();
-
-    nextSlide();
-    setTimeout(startCountdown, 1000);
-}
-
-// ⏱️ COUNTDOWN
 function startCountdown() {
     let count = 3;
     const countdownEl = document.getElementById("countdown");
-    
+
+    bgMusic.volume = 0.4;
+    bgMusic.play().catch(() => {
+        document.body.addEventListener("click", () => bgMusic.play(), { once: true });
+    });
+
     const interval = setInterval(() => {
         countdownEl.textContent = count;
         count--;
-
         if (count < 0) {
             clearInterval(interval);
             nextSlide();
-            setTimeout(nextSlide, 2800);
+            setTimeout(nextSlide, 2500);
         }
     }, 1000);
 }
 
-// 🎬 Slide navigation
 function nextSlide() {
     const currentEl = document.getElementById(`slide-${currentSlide}`);
-    const nextEl = document.getElementById(`slide-${currentSlide + 1}`);
-
-    if (!nextEl) return;
-
-    currentEl.classList.add("exit");
     currentEl.classList.remove("active");
+    currentEl.classList.add("exit");
 
     currentSlide++;
 
-    setTimeout(() => {
-        nextEl.classList.add("active");
-    }, 300);
+    const nextEl = document.getElementById(`slide-${currentSlide}`);
+    nextEl.classList.add("active");
 
     if (currentSlide === 4) createConfetti();
-    if (currentSlide === 5) startCarouselAutoplay();
-    if (currentSlide === 7) setupFinaleMessage();
+    if (currentSlide === 6) messageWriter();
 }
 
-// 🎈 Balloon Pop
 function popBalloon(balloon) {
     if (balloon.classList.contains("popped")) return;
 
-    balloon.classList.add("popped");
     popSound.currentTime = 0;
     popSound.play();
+
+    balloon.classList.add("popped");
     poppedBalloons++;
 
-    showBalloonMessage(balloon.getAttribute("data-message"));
-
-    if (poppedBalloons === 4) {
-        setTimeout(() => {
-            document.getElementById("nextAfterBalloons").classList.remove("hidden");
-        }, 3000);
-    }
-
-    createConfetti();
-}
-
-function showBalloonMessage(msg) {
+    const msg = balloon.getAttribute("data-message");
     const box = document.getElementById("balloonMessage");
     box.textContent = msg;
     box.classList.remove("hidden");
 
     setTimeout(() => box.classList.add("hidden"), 2000);
+
+    if (poppedBalloons === 4) {
+        setTimeout(() => {
+            document.getElementById("nextAfterBalloons").classList.remove("hidden");
+        }, 1500);
+    }
+
+    createConfetti();
 }
 
-// 📸 Carousel Controls
+/* Photos */
 function goToPhoto(i) {
     const cards = document.querySelectorAll(".photo-card");
-    const dots = document.querySelectorAll(".dot");
-
     cards[currentPhoto].classList.remove("active");
-    dots[currentPhoto].classList.remove("active");
-
     currentPhoto = i;
-
     cards[currentPhoto].classList.add("active");
-    dots[currentPhoto].classList.add("active");
 }
 
 function nextPhoto() {
@@ -119,123 +83,101 @@ function prevPhoto() {
     goToPhoto((currentPhoto - 1 + cards.length) % cards.length);
 }
 
-// Auto play + Swipe
-function startCarouselAutoplay() {
-    autoplayInterval = setInterval(nextPhoto, 3000);
-
-    const carousel = document.getElementById("photoCarousel");
-    let startX = 0;
-
-    carousel.addEventListener("touchstart", e => startX = e.touches[0].clientX);
-    carousel.addEventListener("touchend", e => {
-        if (e.changedTouches[0].clientX - startX > 50) prevPhoto();
-        else if (startX - e.changedTouches[0].clientX > 50) nextPhoto();
-    });
-}
-
-// 💌 Greeting card open
+/* Card */
 function toggleCard() {
-    const card = document.getElementById("greetingCard");
-    card.classList.toggle("open");
+    document.getElementById("greetingCard").classList.toggle("open");
 }
 
-// ✨ Personalized message inside card
-function setupFinaleMessage() {
-    const name = localStorage.getItem("bdayName") || "you";
-    const message = `
-Dear ${name}, 💕
+/* Typewriter inside card */
+function messageWriter() {
+    const msg =
+`Dear Raina 💗
 
-You are a gift to this world.  
-May your journey always be filled with joy,
-adventures and beautiful moments. 🌈✨  
+You are truly special.
+May your heart always stay happy.
+May your dreams come true.
 
-Always keep smiling, always keep shining 💖
-`;
+You deserve the best today and always! ✨`;
 
-    typeWriter("personalMessage", message);
-}
+    let i = 0;
+    const msgBox = document.getElementById("personalMessage");
 
-// ⌨️ Typewriter effect
-function typeWriter(id, txt, i = 0) {
-    if (i < txt.length) {
-        document.getElementById(id).innerHTML = txt.substring(0, i + 1);
-        setTimeout(() => typeWriter(id, txt, i + 1), 40);
+    function typeChar() {
+        msgBox.innerHTML = msg.substring(0, i++);
+        if (i <= msg.length) setTimeout(typeChar, 35);
     }
+    typeChar();
 }
 
-// 🎁 GIFTS & FIREWORKS
+/* Gift */
 function openGift() {
-    const gift = document.getElementById("giftBox");
-    gift.classList.add("opening");
+    document.getElementById("giftBox").style.display = "none";
+    document.getElementById("giftReveal").classList.remove("hidden");
 
-    setTimeout(() => {
-        gift.style.display = "none";
-        document.getElementById("giftReveal").classList.remove("hidden");
-        
-        revealSecretText();
-        startFireworks();
-        fireworkSound.play();
-
-        document.getElementById("replayBtn").classList.remove("hidden");
-    }, 900);
+    typeSecretText();
+    startFireworks();
+    fireworkSound.play();
 }
 
-function revealSecretText() {
-    const name = localStorage.getItem("bdayName") || "Lovely";
-    typeWriter("secretText", `Happy Birthday ${name}! 🎉💗`);
+function typeSecretText() {
+    const txt = "Happy Birthday Raina! 🎉💕";
+    let i = 0;
+
+    function write() {
+        document.getElementById("secretText").innerHTML = txt.substring(0, i++);
+        if (i <= txt.length) setTimeout(write, 60);
+    }
+    write();
 }
 
-// 🎆 Confetti System
+/* Confetti */
 function createConfetti() {
     const container = document.getElementById("confettiContainer");
+    const colors = ["#ff94c2", "#9dd6ff", "#fff9a8", "#b8ffd4"];
 
-    for (let i = 0; i < 40; i++) {
-        const confetti = document.createElement("div");
-        confetti.className = "confetti";
-        confetti.style.left = Math.random() * 100 + "%";
-        confetti.style.background = (["#ff9ecb", "#a8d8ff", "#fff4a3", "#b8ffd4"])[Math.floor(Math.random()*4)];
-        confetti.style.animationDuration = 2 + Math.random() * 2 + "s";
-
-        container.appendChild(confetti);
-
-        setTimeout(() => confetti.remove(), 4000);
+    for (let i = 0; i < 35; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.style.left = Math.random() * 100 + "%";
+        c.style.background = colors[Math.floor(Math.random() * colors.length)];
+        c.style.animation = `fall ${2 + Math.random() * 2}s linear forwards`;
+        container.appendChild(c);
+        setTimeout(() => c.remove(), 4000);
     }
 }
 
-// 🎇 Fireworks System
+/* Fireworks */
 const canvas = document.getElementById("fireworksCanvas");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = innerWidth;
+canvas.height = innerHeight;
+
 let particles = [];
 
 function startFireworks() {
-    fireworksActive = true;
-    requestAnimationFrame(animateFireworks);
-    spawnFireworks();
-}
+    setInterval(() => {
+        for (let i = 0; i < 12; i++) createParticle();
+    }, 500);
 
-function spawnFireworks() {
-    if (!fireworksActive) return;
-    for (let i = 0; i < 12; i++) createParticle();
-    setTimeout(spawnFireworks, 500);
+    animateFireworks();
 }
 
 function createParticle() {
-    const color = ["#ff9ecb","#b8ffd4","#fff4a3","#a8d8ff"][Math.floor(Math.random()*4)];
     particles.push({
         x: canvas.width/2,
         y: canvas.height/2,
-        angle: Math.random()*2*Math.PI,
-        speed: Math.random()*3+2,
+        angle: Math.random()*Math.PI*2,
+        speed: Math.random()*4+2,
         radius: 5,
-        color
+        color: ["#ff94c2","#9dd6ff","#fff9a8","#b8ffd4"][Math.floor(Math.random()*4)]
     });
 }
 
 function animateFireworks() {
+    ctx.fillStyle = "rgba(0,0,0,0)";
     ctx.clearRect(0,0,canvas.width,canvas.height);
-    particles.forEach((p,i) => {
+
+    particles.forEach((p,i)=>{
         p.x += Math.cos(p.angle)*p.speed;
         p.y += Math.sin(p.angle)*p.speed;
         p.radius -= .05;
@@ -248,8 +190,11 @@ function animateFireworks() {
         if (p.radius <= 0) particles.splice(i,1);
     });
 
-    if (fireworksActive) requestAnimationFrame(animateFireworks);
+    requestAnimationFrame(animateFireworks);
 }
 
-// 🔄 Replay
-function replay() { location.reload(); }
+function replay() {
+    location.reload();
+}
+
+startCountdown();
